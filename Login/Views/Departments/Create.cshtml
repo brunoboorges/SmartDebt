@@ -1,0 +1,57 @@
+﻿@model Login.Models.Department
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+
+<div class="col-md-6">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+
+
+
+        <div class="form-horizontal ">
+            <h3 class="text-primary">Adicione um Departamento</h3>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                
+                <div class="col-md-10">
+                    <h3>Nome</h3>
+                    <div class="form-input">
+                        <span class="fa fa-envelope-o" aria-hidden="true"></span> <input type="text" name="name"
+                                                                                         placeholder="Digite o Departamento" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+
+                    <div class="login-remember d-grid m-5">
+                        <button type="submit" class="btn theme-button">Cadastre</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+    <div id="divDepartamentos" style="display:none" ;>
+
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to List", "Departments")
+    </div>
+
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    
+    
+}
