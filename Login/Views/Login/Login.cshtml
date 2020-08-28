@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/LoginPage.cshtml";
+}
+
+    
+
+
+
+        <section class="col-md-12">
+
+            <div class="form-inner-cont ">
+                <h3>Logue-se</h3>
+
+
+                <form action="Login" method="post" class="signin-form">
+
+
+
+                    <div class="form-input">
+                        <span class="fa fa-envelope-o" aria-hidden="true"></span> <input type="text" name="nome"
+                                                                                         placeholder="Login" required />
+                    </div>
+                    <div class="form-input">
+                        <span class="fa fa-key" aria-hidden="true"></span> <input type="password" name="password" placeholder="Senha"
+                                                                                  required />
+                    </div>
+                    <div class="login-remember d-grid">
+                        <label class="check-remaind">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            <p class="remember">Lembre-me</p>
+                        </label>
+                        <button class="btn theme-button">Login</button>
+                    </div>
+                    
+                </form>
+                <form action="SignUp" method="post">
+                    <p class="signup">Não tem uma conta? <a href="#signup.html" class="signuplink">@Html.ActionLink("Cadastre-se", "SignUp", "Login")</a></p>
+                </form>
+
+               
+                
+            </div>
+
+        </section>
+
+
+      

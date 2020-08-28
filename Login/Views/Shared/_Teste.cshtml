@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_Teste</title> 
+    @RenderSection("cabecalho", false)
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <div>
+        <h1>Aqui é o corpo da aplicação.</h1>
+        @RenderBody()
+    </div>
+
+
+    @Html.ActionLink("Volte para exemplo", "Exemplo", "Login");
+
+    @Html.ActionLink("Volte para o outro Teste", "OutroTeste", "Login", new {@class = "btn btn-primary"});
+</body>
+</html>
