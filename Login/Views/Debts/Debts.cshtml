@@ -1,0 +1,115 @@
+﻿@model IEnumerable<Login.Models.Debt>
+
+@{
+    ViewBag.Title = "Debts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    .red {
+        background-color:red;
+    }
+
+</style>
+
+
+
+<h2>Minhas dívidas</h2>
+
+@using (Html.BeginForm("Create", "Debt"))
+{
+    <div class="col-md-1 ">
+
+        <a href="" class="btn btn-primary btnCreate" data-toggle="modal" data-target="#exampleModalCenter" style="margin-bottom:10px">Create</a>
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>
+
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date);
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Owner)
+        </th>
+        <th></th>
+    </tr>
+
+
+
+    @foreach (var item in Model)
+    {
+        DateTime today = DateTime.Now;
+        DateTime date = Convert.ToDateTime(item.Date);
+        var resultado = today.Subtract(date);
+
+        if(resultado.Days > 3) { 
+
+
+
+            <tr class="label-warning">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date, new { id = "data" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Owner)
+                </td>
+
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+                    @using (Html.BeginForm("Delete", "Departments", new { id = item.Id }))
+                    {
+                        <div class="col-md-1 ">
+
+                            <a href="" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#exampleModalCenter" data-value="@item.Id">Delete</a>
+                        </div>
+                    }
+
+
+
+                </td>
+            </tr>
+
+        }
+
+    }
+
+    </table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+            </div>
+            <div id="conteudoModal">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="~/Scripts/backgroundChange.js"></script>
+    <script src="~/Scripts/DebtScripts.js"></script>
+}

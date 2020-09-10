@@ -1,0 +1,22 @@
+﻿@model Login.Models.Department
+
+<h3 class="h3 text-center text-primary">Você tem certeza que deseja excluir este Departamento?  </h3>
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color " style="padding: 10px">
+    <input type="submit" value="Delete" class="btn btn-default p-4" /> |
+    @Html.ActionLink("Back to List", "Departments")
+
+    
+</div>
+    }
+</div>

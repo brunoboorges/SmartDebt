@@ -46,13 +46,27 @@ namespace Login.Controllers
 
 
         }
-       /* [HttpGet]
-        public ActionResult Delete()
+       [HttpGet]
+        public ActionResult Delete(Department dep)
         {
+            
+            return PartialView();
 
-            return RedirectToAction("Departments");
 
+        }
 
-        }*/
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Edit(Department dep)
+        {
+            dep.EditarDepartamento(dep);
+
+            return View();
+
+        }
     }
 }

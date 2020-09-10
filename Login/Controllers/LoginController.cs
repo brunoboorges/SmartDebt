@@ -28,7 +28,7 @@ namespace Login.Controllers
         }
 
         [HttpPost]
-        [ActionName("Login")]
+        
         public ActionResult Login(Usuario user)
         {
             Usuario login = new Usuario();
@@ -36,7 +36,7 @@ namespace Login.Controllers
             if (login.Login(user))
             { 
                 Session["usuarioLogadoID"] = user.Nome;
-                return View("App");
+                return RedirectToAction("Debts", "Debts", new { area = "" });
             }
             else { 
             return View("Error");
@@ -86,12 +86,6 @@ namespace Login.Controllers
             return View();
         }
 
-        public ActionResult App()
-        {
-            if (Session["usuarioLogadoID"] != null){
-                return View();
-            }else
-            return Redirect("Login");
-        }
+        
     }
 }

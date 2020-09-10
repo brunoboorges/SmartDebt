@@ -20,10 +20,6 @@ namespace Login.Models
             return ConfigurationManager.ConnectionStrings["Login"].ConnectionString;
         }
 
-        
-
-
-
 
         public Department()
         {
@@ -109,11 +105,17 @@ namespace Login.Models
                     cmd.Connection = con;
                     con.Open();
 
-                    cmd.CommandText = "DELETE from departments WHERE id='" + id + "'";
-                    cmd.ExecuteNonQuery();
+                    for (int i = 0; i <= id; i++)
+                    {
+                        cmd.CommandText = "DELETE from departments WHERE id='" + id + "'";
+                        cmd.ExecuteNonQuery();
+                        
+
+                    }
+
                     return true;
 
-                    
+
                 }
             }
             catch (Exception e)
@@ -126,6 +128,40 @@ namespace Login.Models
             
         }
 
+        //EDITAR DEPARTAMENTO
+
+        public int EditarDepartamento(Department dep)
+        {
+            
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString()))
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    
+                    
+
+
+                    cmd.Connection = con;
+                    con.Open();
+
+                    cmd.CommandText = "UPDATE departments SET Name = '" + dep.Name +"' WHERE id = '"+dep.Id+"'";
+                    cmd.ExecuteNonQuery();
+                    
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+
+            }
+
+            return Id;
+        }
+
+
+        //INSERIR DEPARTAMENTO
         public void PostarDepartamento(Department dep)
         {
 
