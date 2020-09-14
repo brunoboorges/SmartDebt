@@ -96,18 +96,18 @@ namespace Login.Models
         //INSERIR DIVIDA
         public void InsertDebt(Debt debt)
         {
-
+            String debito = debt.Date.ToString("MM/dd/yyyy");
             SqlConnection con = new SqlConnection(connectionString());
             SqlCommand cmd = new SqlCommand();
             
 
             try
             {
-
+                
                 cmd.Connection = con;
                 con.Open();
 
-                cmd.CommandText = "insert into debtos (Description, Amount, Date, Owner) values ('" + debt.Description+ "',  '" + debt.Amount + "', '" + Convert.ToDateTime(debt.Date) + "', '" + debt.Owner + "' )";
+                cmd.CommandText = "insert into debtos (Description, Amount, Date, Owner) values ('" + debt.Description+ "',  '" + debt.Amount + "', '" + Convert.ToDateTime(debito) + "', '" + debt.Owner + "' )";
                 cmd.ExecuteNonQuery();
 
 

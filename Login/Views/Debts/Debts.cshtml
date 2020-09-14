@@ -7,9 +7,8 @@
 
 <style type="text/css">
     .red {
-        background-color:red;
+        background-color: red;
     }
-
 </style>
 
 
@@ -45,11 +44,64 @@
 
     @foreach (var item in Model)
     {
-        DateTime today = DateTime.Now;
-        DateTime date = Convert.ToDateTime(item.Date);
-        var resultado = today.Subtract(date);
+        DateTime startDate = DateTime.Now;
 
-        if(resultado.Days > 3) { 
+        String myDate = item.Date.ToString("MM,dd,yyyy");
+
+        DateTime endDate = Convert.ToDateTime(myDate);
+
+        int resultado = (int)(endDate.DayOfYear - startDate.DayOfYear);
+
+        Console.WriteLine(resultado);
+
+
+
+        //VENCIMENTO PARA MENOS DE 10 DIAS
+
+        if (resultado <= 10)
+        {
+
+
+
+            <tr class="label-danger">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date, new { id = "data" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Owner)
+                </td>
+
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+                    @using (Html.BeginForm("Delete", "Departments", new { id = item.Id }))
+                    {
+                        <div class="col-md-1 ">
+
+                            <a href="" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#exampleModalCenter" data-value="@item.Id">Delete</a>
+                        </div>
+                    }
+
+
+
+                </td>
+            </tr>
+
+        }
+
+        //VENCIMENTO PARA MENOS DE 20 DIAS
+
+        if (resultado <= 20 && resultado > 10)
+        {
 
 
 
@@ -88,9 +140,51 @@
 
         }
 
+        //VENCIMENTO PARA 30 DIAS OU MAIS
+
+        if (resultado <= 30 && resultado > 20)
+        {
+
+
+
+            <tr class="label-info">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date, new { id = "data" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Owner)
+                </td>
+
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+                    @using (Html.BeginForm("Delete", "Departments", new { id = item.Id }))
+                    {
+                        <div class="col-md-1 ">
+
+                            <a href="" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#exampleModalCenter" data-value="@item.Id">Delete</a>
+                        </div>
+                    }
+
+
+
+                </td>
+            </tr>
+
+        }
+
     }
 
-    </table>
+</table>
 
 
 <!-- Modal -->
@@ -112,4 +206,5 @@
 
     <script src="~/Scripts/backgroundChange.js"></script>
     <script src="~/Scripts/DebtScripts.js"></script>
+    
 }

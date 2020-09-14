@@ -188,7 +188,6 @@
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\btnClick.js" />
-    <Content Include="Scripts\CustomScript.js" />
     <Content Include="Scripts\DebtScripts.js" />
     <Content Include="Scripts\Departamento.js" />
     <Content Include="favicon.ico" />
@@ -206,6 +205,7 @@
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\DatapickerScript.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
