@@ -14,7 +14,6 @@ namespace Login.Models
         public string Name { get; set; }
         public ICollection<Debt> Debts { get; set; } = new List<Debt>();
 
-
         string connectionString()
         {
             return ConfigurationManager.ConnectionStrings["Login"].ConnectionString;
@@ -124,7 +123,7 @@ namespace Login.Models
             }
 
 
-            return false;
+           
             
         }
 
@@ -167,7 +166,7 @@ namespace Login.Models
 
             SqlConnection con = new SqlConnection(connectionString());
             SqlCommand cmd = new SqlCommand();
-            SqlDataReader dr;
+            
 
             try
             {

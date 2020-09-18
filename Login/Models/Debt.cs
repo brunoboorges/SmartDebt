@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace Login.Models
 {
@@ -16,9 +17,11 @@ namespace Login.Models
         [Display(Name ="Descrição")]
         public string Description { get; set; }
 
-        [Display(Name = "Vencimento")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Data")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
+
+        public string DataString { get; set; }
 
         [Display(Name = "Valor")]
         [DataType(DataType.Currency)]
@@ -27,7 +30,10 @@ namespace Login.Models
         public List<Department> list { get; set; } = new List<Department>();
 
         [Display(Name = "Devedor")]
-        public String Owner { get; set; }
+        public string Owner { get; set; }
+
+        [DataType(DataType.Currency)]
+        public double TotalAmount { get; set; }
 
         public Debt()
         {
@@ -65,7 +71,7 @@ namespace Login.Models
                     cmd.Connection = con;
                     con.Open();
 
-                    cmd.CommandText = "select * from debtos";
+                    cmd.CommandText = "select * from debtos ORDER BY Date";
                     dr = cmd.ExecuteReader();
 
                     while (dr.Read())
@@ -78,6 +84,7 @@ namespace Login.Models
                         debtos.Owner = dr["Owner"].ToString();
 
                         dividas.Add(debtos);
+
 
                     }
                 }
@@ -92,11 +99,112 @@ namespace Login.Models
 
             return dividas;
         }
+        //SOMAR DIVIDAS 
 
+        public double SumDebts (Debt debt)
+        {
+            
+            List<Debt> lista = new List<Debt>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString()))
+                {
+                    
+                    SqlCommand cmd = new SqlCommand();
+                    SqlDataReader dr;
+
+                    cmd.Connection = con;
+                    con.Open();
+
+                    cmd.CommandText = "select Amount from debtos";
+                    dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                          
+                        Debt debto = new Debt();
+                        debto.Amount = Convert.ToDouble(dr["Amount"]);
+                        lista.Add(debto);
+
+                        TotalAmount = TotalAmount + debto.Amount;
+
+                        
+                    }
+
+                    
+                    
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return TotalAmount;
+        }
+
+        //TOTAL MENSAL
+        public double SumDebtsActualMounth(Debt debt)
+        {
+
+            List<Debt> lista = new List<Debt>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString()))
+                {
+
+                    SqlCommand cmd = new SqlCommand();
+                    SqlDataReader dr;
+
+                    cmd.Connection = con;
+                    con.Open();
+
+                    cmd.CommandText = "select Amount, Date from debtos";
+                    dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        DateTime today = DateTime.Now;
+                        string data = dr["Date"].ToString();
+                        DateTime date = Convert.ToDateTime(data);
+                        if(date.Month > today.Month || date.Month < today.Month)
+                        {
+                            
+                        }
+                        else
+                        {
+                            Debt debto = new Debt();
+                            debto.Amount = Convert.ToDouble(dr["Amount"]);
+                            lista.Add(debto);
+
+                            TotalAmount = TotalAmount + debto.Amount;
+                        }
+                        
+
+
+                    }
+
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return TotalAmount;
+        }
         //INSERIR DIVIDA
         public void InsertDebt(Debt debt)
         {
-            String debito = debt.Date.ToString("MM/dd/yyyy");
+            
+            DateTime dt = Convert.ToDateTime(debt.DataString);
+            debt.Date = dt;
+
+            string s = debt.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+
             SqlConnection con = new SqlConnection(connectionString());
             SqlCommand cmd = new SqlCommand();
             
@@ -107,14 +215,15 @@ namespace Login.Models
                 cmd.Connection = con;
                 con.Open();
 
-                cmd.CommandText = "insert into debtos (Description, Amount, Date, Owner) values ('" + debt.Description+ "',  '" + debt.Amount + "', '" + Convert.ToDateTime(debito) + "', '" + debt.Owner + "' )";
+                cmd.CommandText = "insert into debtos (Description, Amount, Date, Owner) values ('" + debt.Description+ "',  '" + debt.Amount + "', '" + Convert.ToDateTime(s) + "', '" + debt.Owner + "' )";
                 cmd.ExecuteNonQuery();
 
 
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                throw new Exception(e.Message);
+               
             }
 
         }

@@ -18,6 +18,7 @@ namespace Login.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            Session["UsuarioLogadoID"] = null;
             return View();
         }
 
@@ -32,7 +33,7 @@ namespace Login.Controllers
         public ActionResult Login(Usuario user)
         {
             Usuario login = new Usuario();
-
+            
             if (login.Login(user))
             { 
                 Session["usuarioLogadoID"] = user.Nome;

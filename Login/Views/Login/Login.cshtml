@@ -4,47 +4,58 @@
     Layout = "~/Views/LoginPage.cshtml";
 }
 
-    
+
+<link href="~/style/main.css" rel="stylesheet" />
+
+<section class="container-fluid bg">
+    <div class="row justify-content-center">
 
 
 
-        <section class="col-md-12">
+        <div class=" text-center mt-5">
 
-            <div class="form-inner-cont ">
+
+            <form action="Login" method="post" class="form-container ">
                 <h3>Logue-se</h3>
 
 
-                <form action="Login" method="post" class="signin-form">
+                <div class="form-group mt-3">
+                    <label for="exampleDropdownFormEmail1">Usuário</label>
+                    <input type="text" name="nome" class="form-control" placeholder="Login" required />
+                </div>
+                <div class="form-group">
+                    <label for="exampleDropdownFormPassword1">Senha</label>
+                    <input type="password" name="password" placeholder="Senha" class="form-control" required />
+                </div>
+                <div class="login-remember justify-content-center d-grid">
 
-
-
-                    <div class="form-input">
-                        <span class="fa fa-envelope-o" aria-hidden="true"></span> <input type="text" name="nome"
-                                                                                         placeholder="Login" required />
-                    </div>
-                    <div class="form-input">
-                        <span class="fa fa-key" aria-hidden="true"></span> <input type="password" name="password" placeholder="Senha"
-                                                                                  required />
-                    </div>
-                    <div class="login-remember d-grid">
-                        <label class="check-remaind">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                            <p class="remember">Lembre-me</p>
-                        </label>
-                        <button class="btn theme-button">Login</button>
-                    </div>
-                    
-                </form>
+                    <button class="btn btn-primary "> Login</button>
+                </div>
                 <form action="SignUp" method="post">
                     <p class="signup">Não tem uma conta? <a href="#signup.html" class="signuplink">@Html.ActionLink("Cadastre-se", "SignUp", "Login")</a></p>
                 </form>
 
-               
-                
-            </div>
 
-        </section>
+            </form>
 
 
-      
+
+
+
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+

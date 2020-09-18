@@ -1,7 +1,5 @@
 ﻿@model Login.Models.Debt
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
 
 
 @using (Html.BeginForm())
@@ -9,15 +7,12 @@
     @Html.AntiForgeryToken()
 
 
+    <div>
+        <h3 class="text-body text-center">Inserir Nova Divida</h3>
+    </div>
 
-
-
-
-    
-
-    <div class="form-horizontal">
-        <h4 class="text-primary">Criar nova Divida</h4>
-        <hr />
+    <div class="form-horizontal p-5">
+           
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Description, "Descrição", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -40,39 +35,20 @@
 
 
         <div class="form-group">
-
-
-            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-
-            
-                    <div class='col-md-10'>
-                        
-                            <div class='input' >
-                                <input type='text' class="form-control" id='datetimepicker4' />
-                                
-                            </div>
-                        
-                    </div>
-                
-            
-        </div>
-        
-
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Owner, "Dono", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DataString, "Vencimento", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Owner, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Owner, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.DataString, new { htmlAttributes = new { @class = "form-control", @id = "data", @autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.DataString, "", new { @class = "text-danger" })
             </div>
+            
         </div>
 
-
+        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                
+                <button class="btn btn-primary">Criar</button>
             </div>
         </div>
     </div>
@@ -80,23 +56,38 @@
 
 
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-
 
 @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-3.5.1.min.js"></script>
+
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/DatapickerScript.js"></script>
+
+
+
 
 
 <script type="text/javascript">
-    $(function () {
+    
+    $("#data").datepicker({
         
-        $('#datetimepicker4').datetimepicker({
+        changeMonth: true,
+        changeYear: true, maxDate: "+400D",
+        minDate: 0,
+        dateFormat: 'dd/mm/yy',
+    
+        startDate: new Date(),
 
-           
-        });
-            
-        
     });
+
+
+
 </script>

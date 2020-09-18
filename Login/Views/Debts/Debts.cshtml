@@ -1,198 +1,349 @@
 ﻿@model IEnumerable<Login.Models.Debt>
 
+
+
 @{
-    ViewBag.Title = "Debts";
+    ViewBag.Title = "Smart Debt";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/style/font-awesome.min.css" rel="stylesheet" />
+<link href="~/style/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/style/main.css" rel="stylesheet" />
 
-<style type="text/css">
-    .red {
-        background-color: red;
+<style>
+    .botao {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 14px;
+        padding: 10px;
+        border-radius: 25px
     }
 </style>
 
 
 
-<h2>Minhas dívidas</h2>
 
 @using (Html.BeginForm("Create", "Debt"))
-{
-    <div class="col-md-1 ">
 
-        <a href="" class="btn btn-primary btnCreate" data-toggle="modal" data-target="#exampleModalCenter" style="margin-bottom:10px">Create</a>
+
+{
+    <div class="col-md-2 ">
+        <a href="" class="btn btn-primary btnCreate" data-toggle="modal" data-target="#exampleModalCenter" style=" margin-bottom:20px ; margin-top:50px">
+            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
+                <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z" />
+                <path fill-rule="evenodd" d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z" />
+            </svg>
+            Inserir Divida
+        </a>
     </div>
 }
-<table class="table">
-    <tr>
-        <th>
-
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date);
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Amount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Owner)
-        </th>
-        <th></th>
-    </tr>
 
 
+@section Tabela{
 
-    @foreach (var item in Model)
-    {
-        DateTime startDate = DateTime.Now;
+    <div class="row ">
 
-        String myDate = item.Date.ToString("MM,dd,yyyy");
+        <div class="col-lg-9 rounded">
 
-        DateTime endDate = Convert.ToDateTime(myDate);
+            <table class="table table-bordered ml-3 bg-white p-4 rounded">
+                <tr class="">
+                    <th class="h4">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
 
-        int resultado = (int)(endDate.DayOfYear - startDate.DayOfYear);
+                    <th class="h4 ">
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th class="h4">
+                        Vencimento
+                    </th>
+                    <th class="h4">
+                        @Html.DisplayNameFor(model => model.Amount)
+                    </th>
 
-        Console.WriteLine(resultado);
+                    <th class="h4">
+                        Opções
+                    </th>
 
 
-
-        //VENCIMENTO PARA MENOS DE 10 DIAS
-
-        if (resultado <= 10)
-        {
+                </tr>
 
 
 
-            <tr class="label-danger">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date, new { id = "data" })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Owner)
-                </td>
+                @foreach (var item in Model)
+                {
+
+                    DateTime startDate = DateTime.Now;
+
+                    String myDate = item.Date.ToString("dd,MM,yyyy");
+
+                    DateTime endDate = Convert.ToDateTime(myDate);
+
+                    int resultado = (int)(endDate.DayOfYear - startDate.DayOfYear);
 
 
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
 
-                    @using (Html.BeginForm("Delete", "Departments", new { id = item.Id }))
+
+                    Console.WriteLine(resultado);
+
+
+
+                    //VENCIMENTO PARA MENOS DE 10 DIAS
+
+                    if (resultado < 10)
                     {
-                        <div class="col-md-1 ">
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
 
-                            <a href="" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#exampleModalCenter" data-value="@item.Id">Delete</a>
-                        </div>
+                                @Html.DisplayFor(modelItem => item.Date, new { id = "data" })
+
+                            </td>
+                            <td class="col-xs-2">
+                                <button type="button" class="button btn-danger table-bordered botao">Faltam @resultado dias para o vencimento</button>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+
+
+                            <td>
+                                @using (Html.BeginForm("Delete", "Departments", new { id = item.Id }))
+                                {
+                                    <div>
+                                        <a href="" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#exampleModalCenter" data-value="@item.Id">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                            </svg>
+                                            Deletar
+                                        </a>
+                                    </div>
+                                }
+
+
+
+                            </td>
+
+
+                        </tr>
+
                     }
 
 
+                    //VENCIMENTO PARA MENOS DE 20 DIAS
 
-                </td>
-            </tr>
-
-        }
-
-        //VENCIMENTO PARA MENOS DE 20 DIAS
-
-        if (resultado <= 20 && resultado > 10)
-        {
-
-
-
-            <tr class="label-warning">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date, new { id = "data" })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Owner)
-                </td>
-
-
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-
-                    @using (Html.BeginForm("Delete", "Departments", new { id = item.Id }))
+                    if (resultado <= 20 && resultado > 10)
                     {
-                        <div class="col-md-1 ">
 
-                            <a href="" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#exampleModalCenter" data-value="@item.Id">Delete</a>
-                        </div>
+
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date, new { id = "data" })
+
+                            </td>
+                            <td>
+                                <button type="button" class="button btn-warning table-bordered botao">Faltam @resultado dias para o vencimento</button>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+
+                            <td>
+
+
+                                @using (Html.BeginForm("Delete", "Departments", new { id = item.Id }))
+                                {
+                                    <a href="" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#exampleModalCenter" data-value="@item.Id">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                        </svg>
+                                        Deletar
+                                    </a>
+                                }
+
+
+
+                            </td>
+                        </tr>
+
+                    }
+
+                    //VENCIMENTO PARA 30 DIAS OU MAIS
+
+                    if (resultado > 20)
+                    {
+
+
+
+                        <tr class="">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date, new { id = "data" })
+
+                            </td>
+                            <td>
+                                <button type="button" class="button btn-info table-bordered botao">Faltam @resultado dias para o vencimento</button>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+
+
+
+                            <td>
+                                @using (Html.BeginForm("Delete", "Departments", new { id = item.Id }))
+                                {
+                                    <a href="" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#exampleModalCenter" data-value="@item.Id">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                        </svg>
+                                        Deletar
+                                    </a>
+
+                                }
+
+                            </td>
+
+                        </tr>
+
                     }
 
 
+                }
 
-                </td>
-            </tr>
+            </table>
+        </div>
 
-        }
-
-        //VENCIMENTO PARA 30 DIAS OU MAIS
-
-        if (resultado <= 30 && resultado > 20)
-        {
+        <div class="col-lg-3">
 
 
+            <div class="card bg-transparent " style="border:0;">
+                <ul class="list-group" style="border-radius:25px; ">
 
-            <tr class="label-info">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date, new { id = "data" })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Owner)
-                </td>
+                    <li class="list-group-item d-flex justify-content-between align-items-center shadow">
+                        <span class="text-primary">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-sort-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M3 13a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z" />
+                                <path fill-rule="evenodd" d="M5.354 4.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L3 3.207l1.646 1.647a.5.5 0 0 0 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 9a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z" />
+                            </svg>
+                        </span>
+                        <p class="p-0 m-0 font-weight-bold">DIVIDA TOTAL</p>
+                        <span class="badge badge-primary badge-pill p-2 text-light">
+                            @Session["valorTotal"]
+                        </span>
 
 
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-
-                    @using (Html.BeginForm("Delete", "Departments", new { id = item.Id }))
-                    {
-                        <div class="col-md-1 ">
-
-                            <a href="" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#exampleModalCenter" data-value="@item.Id">Delete</a>
-                        </div>
-                    }
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center shadow">
+                        <span class="text-warning ">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-bullseye" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10zm0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+                                <path fill-rule="evenodd" d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+                                <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                            </svg>
+                        </span>
+                        <p class="p-0 m-0 font-weight-bold">TOTAL MENSAL</p>
+                        <span class="badge badge-warning badge-pill p-2 text-light">
+                            @Session["valorTotalMes"]
+                        </span>
 
 
 
-                </td>
-            </tr>
+                    </li>
+                </ul>
 
-        }
 
-    }
 
-</table>
+            </div>
+
+            <div class="card bg-transparent mt-5" style="border:0; ">
+                <ul class="list-group" style="border-radius:25px; ">
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center shadow">
+
+                        <span class="text-success">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-cash-stack" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 3H1a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1h-1z" />
+                                <path fill-rule="evenodd" d="M15 5H1v8h14V5zM1 4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H1z" />
+                                <path d="M13 5a2 2 0 0 0 2 2V5h-2zM3 5a2 2 0 0 1-2 2V5h2zm10 8a2 2 0 0 1 2-2v2h-2zM3 13a2 2 0 0 0-2-2v2h2zm7-4a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
+                            </svg>
+                        </span>
+
+                        <p class="p-3 m-0 font-weight-bold" style="font-size:20px">RECEITA</p>
+                        <span class="badge badge-success badge-pill p-3 text-light" style="font-size:15px">
+                            @Session["receita"]
+                        </span>
+
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-lg-start align-items-center col-lg-11 border shadow" style="border-radius:0px 0px 25px 0px">
+
+                        @using (Html.BeginForm("AdicionarReceita", "Debts"))
+
+
+                        {
+
+                            <a href="#" class="text-success mr-3">
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                </svg>
+                            </a>
+                        }
+                        <button class="btn tran">
+                        </button>
+
+
+
+                        <p class=" m-0 font-weight-bold text-center " style="font-size:15px">ADICIONAR RECEITA FIXA</p>
+
+
+                    </li>
+                    <li class="list-group-item d-flex justify-content-lg-start align-items-center col-sm-10 shadow">
+                        <a href="#" class=" mr-3" style="color:mediumpurple">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                            </svg>
+                        </a>
+                        <p class=" m-0 font-weight-bold text-center " style="font-size:15px">ADICIONAR OUTRAS RECEITAS </p>
+
+
+                    </li>
+
+                </ul>
+
+
+
+            </div>
+        </div>
+
+}
+</div>
 
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style=" border-width:2px !important">
 
             <div class="modal-body">
+
+                <button type="button" class="close" aria-label="Close" onclick="location.href='@Url.Action("Debts")'">
+                    <span aria-hidden="true">&times;</span>
+                </button>
 
             </div>
             <div id="conteudoModal">
@@ -202,9 +353,10 @@
     </div>
 </div>
 
+
 @section scripts{
 
     <script src="~/Scripts/backgroundChange.js"></script>
     <script src="~/Scripts/DebtScripts.js"></script>
-    
+
 }

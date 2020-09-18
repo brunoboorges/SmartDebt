@@ -1,29 +1,19 @@
-﻿
-@model Login.Models.Debt
-
-<h3>Tem certeza que seja apagar este dado?</h3>
+﻿@model Login.Models.Debt
 
 
 
-<div>
-
-    <dl class="dl-horizontal">
-
-
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-
-    </dl>
+<h3 class="text-center">Você tem certeza que deseja deletar este item?</h3>
+<div class=" center-block">
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default p-4" />
-
+        
+        <div class="col text-center mb-4 mt-4">
+            <button type="submit" class="btn mx-auto btn-danger">Deletar</button>
         </div>
-    }
 
+
+    }
 </div>

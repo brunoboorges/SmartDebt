@@ -22,6 +22,8 @@ namespace Login.Models
         public string Password { get; set; }
         public string SecondPass { get; set; }
 
+        public double Receita { get; set; }
+
         public Usuario()
         {
 
@@ -156,7 +158,65 @@ namespace Login.Models
 
             return false;
         }
+        //INSERIR RECEITAS
+        public void InserirReceita(Usuario user)
+        {
+            
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString()))
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
+                    con.Open();
+
+                    cmd.CommandText = "insert into usuarios (receita) values ('"+user.Receita+"') ";
+                    
+                    
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+
 
         
+        }
+
+        //PUXAR RECEITAS
+        public double ReceitaMensal(string user)
+        {
+            double receita = 0;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString()))
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    SqlDataReader dr;
+                    cmd.Connection = con;
+                    con.Open();
+
+                    cmd.CommandText = "select * from usuarios where usuario='"+user+"' ";
+                    dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        receita = Convert.ToDouble(dr["receita"]);
+                        return receita;
+                    }
+                    
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+
+
+            return receita;
+        }
     }
 }

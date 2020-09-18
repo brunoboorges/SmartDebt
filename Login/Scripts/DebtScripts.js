@@ -19,9 +19,9 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-
+    debugger
     $(".btnDelete").click(function () {
-
+        
         var id = $(this).data("value")
 
         $("#conteudoModal").load("/Debts/RemoveDebt/" + id,
@@ -33,6 +33,16 @@ $(document).ready(function () {
 
         )
 
+
+    });
+
+});
+
+$(document).ready(function () {
+    debugger
+    $(".btnFuncao").click(function () {
+
+        alert("eai")
 
     });
 

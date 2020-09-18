@@ -18,6 +18,11 @@ namespace Login
                 "Departamentos",
                 new { controller = "Departments", action = "Departments" }
                 );
+            routes.MapRoute(
+                "AdicionarReceita",
+                "addReceita",
+                new { controller = "Debts", action = "AdicionarReceita" }
+                );
 
             routes.MapRoute(
                 "Debts",

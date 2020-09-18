@@ -15,9 +15,10 @@ namespace Login.Controllers
 
         public ActionResult Departments(Department department)
         {
+            
             var departmento = department.ShowDepartments(department).ToList();
 
-            return View(departmento);
+            return View(departmento.ToList());
         }
 
         [HttpGet]
