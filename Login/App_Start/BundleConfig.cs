@@ -9,6 +9,11 @@ namespace Login
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                         "~/Scriptps/jquery-3.5.1.js",
+                         "~/Scriptps/DebtScripts.js",
+                         "~/Scriptps/DatapickerScript.js",
+                         "~/Scriptps/jquery-ui.min.js",
+                         "~/Scriptps/jquery-ui-1.12.1.min.js",
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

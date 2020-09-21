@@ -12,11 +12,11 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <link href="~/style/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-grid.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-reboot.min.css" rel="stylesheet" />
-    <script src="~/Scripts/DebtScripts.js"></script>
+
 
 
     @RenderSection("cabecalho", required: false)
@@ -32,15 +32,12 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "text-light, nav-link" })
+                    @Html.ActionLink("Sobre", "About", "Home", new { area = "" }, new { @class = "text-light, nav-link" })
                 </li>
                 <li class="nav-item">
-                    @Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "text-light, nav-link" })
+                    @Html.ActionLink("Contato", "Contact", "Home", new { area = "" }, new { @class = "text-light, nav-link" })
                 </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Departmentos", "Departments", "Departments", new { area = "" }, new { @class = "text-light, nav-link" })
-                </li>
-
+                    
             </ul>
             <p class="nav-link text-light font-weight-bold p-0 m-0 mr-5">Bem vindo, @Session["UsuarioLogadoID"]</p>
             <ul class="navbar-nav mr-5">
@@ -59,8 +56,8 @@
 
         @RenderBody()
 
-        @RenderSection("Tabela", required: false)
 
+        @RenderSection("Tabela", required: false)
 
         <footer>
         </footer>
@@ -68,22 +65,13 @@
 
 
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    <script src="~/Scripts/moment.min.js"></script>
-    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
-
-    <script src="~/Scripts/popper.min.js"></script>
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="~/Scripts/DatapickerScript.js"></script>
-    <script src="~/Scripts/DebtScripts.js"></script>
-    @RenderSection("scripts", required: false)
 
 
-<script type="text/javascript">
-    $(document).
-</script>
+    
 </body>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+@RenderSection("scripts", required: false)
 </html>

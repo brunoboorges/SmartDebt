@@ -2,9 +2,6 @@
 
     $('#datetimepicker4').datetimepicker({
 
-
-
     });
-
 
 });
