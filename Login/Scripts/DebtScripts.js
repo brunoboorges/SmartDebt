@@ -1,8 +1,23 @@
-﻿
+﻿$(document).ready(function () {
+
+    $(".btnReceita").click(function () {
+        $("#conteudoModal").load("/Debts/AdicionarReceita/",
+
+            function () {
+                $('#myModal').modal("show")
+                console.log();
+            }
+
+        )
+
+
+    });
+
+});
+
 $(document).ready(function () {
 
     $(".btnCreate").click(function () {
-
         $("#conteudoModal").load("/Debts/DebtCreate/",
 
             function () {
@@ -36,4 +51,3 @@ $(document).ready(function () {
     });
 
 });
-
