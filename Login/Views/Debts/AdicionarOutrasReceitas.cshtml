@@ -1,0 +1,53 @@
+﻿@model Login.Models.Usuario
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4 class="m-3">Outras Receitas</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <form action="/" method="post">
+
+
+            <div class="form-group">
+
+                <div class="col-md-10">
+
+                    <input type="text" class="form-control" placeholder="Descrição da receita..." name="OtReceitasNome">
+
+                    @Html.ValidationMessageFor(model => model.OtReceitasNome, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-md-10">
+
+                    <input type="text" class="form-control" placeholder="Valor..." name="OutrasReceitas">
+
+                    @Html.ValidationMessageFor(model => model.OutrasReceitas, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group" >
+                
+                   
+                
+            </div>
+        </form>
+    </div>
+}
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

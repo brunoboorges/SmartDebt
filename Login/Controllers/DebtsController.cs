@@ -17,9 +17,20 @@ namespace Login.Controllers
             if (Session["usuarioLogadoID"] != null) {
                 string usuario = Session["usuarioLogadoID"].ToString();
                 Session["valorTotalMes"] = debt.SumDebtsActualMounth(debt).ToString("C2");
-                Session["receita"] = user.ReceitaMensal(usuario).ToString("C2");
                 Session["valorTotal"] = debt.SumDebts(debt).ToString("C2");
-            var listaDebito = debt.ShowDebts(debt).ToList(); 
+                
+                //soma total receita
+
+                double receitaMensal = user.ReceitaMensal(usuario);
+                double otReceitas = user.SumOtReceitas(user);
+                double receitaResult = receitaMensal + otReceitas;
+
+                Session["receitaTotal"] = receitaResult.ToString("C2");
+
+                Session["receita"] = receitaMensal.ToString("C2");
+                Session["totalOtReceitas"] = otReceitas.ToString("C2");
+
+                var listaDebito = debt.ShowDebts(debt).ToList(); 
             return View(listaDebito);
             }
             else {
@@ -31,7 +42,6 @@ namespace Login.Controllers
         [HttpGet]
         public ActionResult DebtCreate()
         {
-            
             Department dep = new Department();
             var listDepartment = dep.ShowDepartments(dep).ToList();
             ViewBag.ListDepartments = new SelectList(listDepartment);
@@ -40,7 +50,7 @@ namespace Login.Controllers
         [HttpPost]
         public ActionResult DebtCreate(Debt debt)
         {
-            String x = Session["usuarioLogadoID"].ToString();
+            string x = Session["usuarioLogadoID"].ToString();
             debt.InsertDebt(debt);
             return RedirectToAction("Debts");
         }
@@ -65,9 +75,34 @@ namespace Login.Controllers
             return PartialView();
         }
         [HttpPost]
-        public ActionResult AdicionarReceita(Debt debt)
+        public ActionResult AdicionarReceita(Usuario user)
         {
-            
+            string nome = Session["usuarioLogadoID"].ToString();
+            user.InserirReceita(user, nome);
+            return RedirectToAction("Debts");
+        }
+        [HttpGet]
+        public ActionResult LerOutrasReceitas()
+        {
+            Usuario user = new Usuario();
+            if (Session["usuarioLogadoID"] != null)
+            {
+                string nome = Session["usuarioLogadoID"].ToString();
+                var listaOtReceitas = user.LerOutrasReceitas(user, nome).ToList();
+                return PartialView(listaOtReceitas);
+            }return View("Debts");
+        }
+        [HttpPost]
+        public ActionResult LerOutrasReceitas(Usuario user)
+        {
+            user.InserirOutrasReceitas(user);
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        [HttpPost]
+        public ActionResult OtDelete(int id)
+        {
+            Usuario user = new Usuario();
+            user.OtDelete(id);
             return RedirectToAction("Debts");
         }
     }
