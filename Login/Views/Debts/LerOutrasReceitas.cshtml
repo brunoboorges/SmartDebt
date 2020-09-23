@@ -9,7 +9,7 @@
 
 @foreach (var receita in Model)
 {
-    
+
     if (i < 1)
     {
         @Html.Partial("AdicionarOutrasReceitas", receita);
@@ -19,48 +19,56 @@
 
 
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.OtReceitasNome)
+<table class="table table-bordered  h5">
+    <thead class="thead-light"> 
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OtReceitasNome)
 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OutrasReceitas)
-        </th>
-
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr class="m3 table-bordered">
-
-            <td class="text-capitalize font-weight-bolder" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
-                @Html.DisplayFor(modelItem => item.OtReceitasNome)
-            </td>
-            <td class="text-capitalize font-weight-bolder" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
-                @Html.DisplayFor(modelItem => item.OutrasReceitas)
-            </td>
-
-            <td>
-
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OutrasReceitas)
+            </th>
+            <th>
                 
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+
+            <tr class="">
+
+                <td class="text-capitalize " style="font-size:15px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+                    @Html.DisplayFor(modelItem => item.OtReceitasNome)
+                </td>
+                <td class="text-capitalize font-weight-bolder " style="font-size: 15px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+                    @Html.DisplayFor(modelItem => item.OutrasReceitas)
+                </td>
+
+                <td class="border-table">
+
+
                     @using (Html.BeginForm("OtDelete", "Debts", new { id = item.OtId }))
                     {
                         <div>
-                            <button class="btn btn-danger" type="submit" name="@item.OtId">
+                            <button class="btn btn-danger " type="submit" name="@item.OtId">
                                 Deletar
                             </button>
                         </div>
                     }
-                
-
-            </td>
-        </tr>
 
 
-    }
+                </td>
+            </tr>
 
+
+
+
+        }
+    </thead>
 
 </table>
 

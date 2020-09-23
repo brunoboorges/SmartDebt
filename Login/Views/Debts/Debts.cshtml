@@ -10,16 +10,6 @@
 <link href="~/style/jquery-ui.min.css" rel="stylesheet" />
 <link href="~/style/main.css" rel="stylesheet" />
 
-<style>
-    .botao {
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-size: 14px;
-        padding: 10px;
-        border-radius: 25px
-    }
-</style>
-
-
 
 
 @using (Html.BeginForm("Create", "Debt"))
@@ -149,7 +139,7 @@
 
                             </td>
                             <td>
-                                <button type="button" class="button btn-warning table-bordered botao">Faltam @resultado dias para o vencimento</button>
+                                <button type="button" class="text-light button btn-warning table-bordered botao">Faltam @resultado dias para o vencimento</button>
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Amount)
@@ -192,7 +182,7 @@
 
                             </td>
                             <td>
-                                <button type="button" class="button btn-info table-bordered botao">Faltam @resultado dias para o vencimento</button>
+                                <button type="button" class="button btn-primary table-bordered botao">Faltam @resultado dias para o vencimento</button>
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Amount)
@@ -227,23 +217,23 @@
 
         <div class="col-lg-3">
 
-
+            <!-- DIVIDA TOTAL -->
             <div class="card bg-transparent " style="border:0;">
                 <ul class="list-group" style="border-radius:25px; ">
 
                     <li class="list-group-item d-flex justify-content-between align-items-center shadow">
-                        <span class="text-primary">
+                        <span class="text-danger">
                             <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-sort-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M3 13a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z" />
                                 <path fill-rule="evenodd" d="M5.354 4.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L3 3.207l1.646 1.647a.5.5 0 0 0 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 9a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z" />
                             </svg>
                         </span>
-                        <p class="p-0 m-0 font-weight-bold">DIVIDA TOTAL</p>
-                        <span class="badge badge-primary badge-pill p-2 text-light">
+                        <p class="p-0 m-0 font-weight-bold" style="font-size:20px">DIVIDA TOTAL</p>
+                        <span class="badge badge-danger badge-pill p-3 text-light" style="font-size:15px">
                             @Session["valorTotal"]
                         </span>
 
-
+                        <!-- DIVIDA MENSAL -->
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center shadow">
                         <span class="text-warning ">
@@ -254,8 +244,8 @@
                                 <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                             </svg>
                         </span>
-                        <p class="p-0 m-0 font-weight-bold">TOTAL MENSAL</p>
-                        <span class="badge badge-warning badge-pill p-2 text-light">
+                        <p class="p-0 m-0 font-weight-bold" style="font-size:15px">DIVIDA TOTAL MENSAL</p>
+                        <span class="badge badge-warning badge-pill p-2 text-light" style="font-size:18px">
                             @Session["valorTotalMes"]
                         </span>
 
@@ -267,6 +257,7 @@
 
 
             </div>
+
 
 
             <div class="card bg-transparent mt-5" style="border:0; ">
@@ -281,7 +272,7 @@
                                 <path d="M13 5a2 2 0 0 0 2 2V5h-2zM3 5a2 2 0 0 1-2 2V5h2zm10 8a2 2 0 0 1 2-2v2h-2zM3 13a2 2 0 0 0-2-2v2h2zm7-4a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
                             </svg>
                         </span>
-
+                        <!-- RECEITA TOTAL -->
                         <p class="p-3 m-0 font-weight-bold" style="font-size:20px">RECEITA</p>
                         <span class="badge badge-success badge-pill p-3 text-light" style="font-size:15px">
                             @Session["receitaTotal"]
@@ -297,7 +288,7 @@
 
                         {
 
-                            <a href="#" data-toggle="modal" data-target="#exampleModalCenter" class="text-success btnReceita mr-3" >
+                            <a href="#" data-toggle="modal" data-target="#exampleModalCenter" class="text-success btnReceita mr-3">
                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                     <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
@@ -306,12 +297,12 @@
                         }
 
 
-                    <p class=" m-0 font-weight-bold text-center " style="font-size:15px">ADICIONAR RECEITA FIXA | @Session["receita"]</p>
+                        <p class=" m-0 font-weight-bold text-center " style="font-size:15px">ADICIONAR RECEITA FIXA | @Session["receita"]</p>
 
                         <!-- INCLUIR OUTRAS RECEITA -->
                     </li>
                     <li class="list-group-item d-flex justify-content-lg-start align-items-center col-sm-10 shadow">
-                        <a href="#"data-toggle="modal" data-target="#exampleModalCenter" class=" mr-3 btnOtReceitas" style="color:mediumpurple">
+                        <a href="#" data-toggle="modal" data-target="#exampleModalCenter" class=" mr-3 btnOtReceitas" style="color:mediumpurple">
                             <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                 <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
@@ -327,10 +318,40 @@
 
 
             </div>
+
+
+
+            <div class="card mt-5 p-3 justify-content-lg-center boder shadow" style="border-radius:25px">
+                <p class="p-0 m-0 font-weight-bold">
+                    SALDO ATUAL >
+                </p>
+                <ul class="m-0 p-0">
+                    <li class="list-group-item d-flex font-weight-bold justify-content-between align-items-center p-0 m-0" style="border-style:none;">
+                        <span class="h1 m-0 p-0" style="font-size:30px">
+                            @Session["saldoMensal"]
+                        </span>
+
+                        <span class="badge badge-primary  text-light p-3" style="border-radius:45px">
+                            <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-wallet2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z" />
+                            </svg>
+                        </span>
+
+
+                        <!-- DIVIDA MENSAL -->
+                    </li>
+                </ul>
+                
+
+            </div>
+
+
         </div>
 
 }
 </div>
+
+
 
 
 <!-- Modal -->
@@ -345,7 +366,7 @@
                 </button>
 
             </div>
-            <div id="conteudoModal">
+            <div class="p-2" id="conteudoModal">
 
             </div>
         </div>
@@ -353,15 +374,12 @@
 </div>
 
 
-
-
 @section scripts{
     @Scripts.Render("~/bundles/jquery")
-    
-    <script src="~/Scripts/backgroundChange.js"></script>
     <script src="~/Scripts/DebtScripts.js"></script>
-    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
     <script src="~/Scripts/backgroundChange.js"></script>
-    
-    
+    @Scripts.Render("~/bundles/bootstrap")
+
+
 }
+

@@ -16,7 +16,8 @@ namespace Login.Controllers
             Usuario user = new Usuario();
             if (Session["usuarioLogadoID"] != null) {
                 string usuario = Session["usuarioLogadoID"].ToString();
-                Session["valorTotalMes"] = debt.SumDebtsActualMounth(debt).ToString("C2");
+                double totalMes = debt.SumDebtsActualMounth(debt);
+                Session["valorTotalMes"] = totalMes.ToString("C2");
                 Session["valorTotal"] = debt.SumDebts(debt).ToString("C2");
                 
                 //soma total receita
@@ -26,9 +27,11 @@ namespace Login.Controllers
                 double receitaResult = receitaMensal + otReceitas;
 
                 Session["receitaTotal"] = receitaResult.ToString("C2");
-
                 Session["receita"] = receitaMensal.ToString("C2");
                 Session["totalOtReceitas"] = otReceitas.ToString("C2");
+
+                double saldoMensal =  receitaResult - totalMes;
+                Session["saldoMensal"] = saldoMensal.ToString("C2");
 
                 var listaDebito = debt.ShowDebts(debt).ToList(); 
             return View(listaDebito);

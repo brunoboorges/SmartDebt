@@ -21,3 +21,10 @@ p{
     box-shadow: 0px 0px 10px 0px;
     
 }
+.botao {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 25px
+}
+

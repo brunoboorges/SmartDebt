@@ -13,7 +13,7 @@ namespace Login.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "SmartDebt é uma aplicação para contabilizar saldos e controlar débitos.";
 
             return View();
         }
