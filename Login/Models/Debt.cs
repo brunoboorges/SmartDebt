@@ -18,7 +18,8 @@ namespace Login.Models
         public string Description { get; set; }
 
         [Display(Name = "Data")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [Required(ErrorMessage = "A data de início é obrigatória")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
         public string DataString { get; set; }
@@ -125,14 +126,13 @@ namespace Login.Models
                         Debt debto = new Debt();
                         debto.Amount = Convert.ToDouble(dr["Amount"]);
                         lista.Add(debto);
-
-                        TotalAmount = TotalAmount + debto.Amount;
+                        TotalAmount = lista.Sum(p => p.Amount);
 
                         
                     }
 
-                    
-                    
+
+
                 }
             }
             catch (Exception e)
@@ -200,9 +200,9 @@ namespace Login.Models
         {
             
             DateTime dt = Convert.ToDateTime(debt.DataString);
-            debt.Date = dt;
+            //debt.Date = dt;
 
-            string s = debt.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+            //string s = debt.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
 
 
             SqlConnection con = new SqlConnection(connectionString());
@@ -215,7 +215,7 @@ namespace Login.Models
                 cmd.Connection = con;
                 con.Open();
 
-                cmd.CommandText = "insert into debtos (Description, Amount, Date, Owner) values ('" + debt.Description+ "',  '" + debt.Amount + "', '" + Convert.ToDateTime(s) + "', '" + debt.Owner + "' )";
+                cmd.CommandText = "insert into debtos (Description, Amount, Date, Owner) values ('" + debt.Description+ "',  '" + debt.Amount + "', '" + debt.Date + "', '" + debt.Owner + "' )";
                 cmd.ExecuteNonQuery();
 
 

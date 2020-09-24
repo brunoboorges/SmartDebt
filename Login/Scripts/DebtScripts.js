@@ -4,7 +4,7 @@
         $("#conteudoModal").load("/Debts/AdicionarReceita/",
 
             function () {
-                $('#myModal').modal("show")
+                $('#myModal').show();
                 console.log();
             }
 
@@ -21,7 +21,7 @@ $(document).ready(function () {
         $("#conteudoModal").load("/Debts/DebtCreate/",
 
             function () {
-                $('#myModal').modal("show")
+                $('#myModal').show()
                 console.log();
             }
 
@@ -41,7 +41,7 @@ $(document).ready(function () {
         $("#conteudoModal").load("/Debts/LerOutrasReceitas/" ,
 
             function () {
-                $('#myModal').modal("show")
+                $('#myModal').show()
                 console.log();
             }
 
@@ -62,7 +62,7 @@ $(document).ready(function () {
         $("#conteudoModal").load("/Debts/AdicionarOutrasReceitas/",
 
             function () {
-                $('#myModal').modal("show")
+                $('#myModal').show()
                 console.log();
             }
 
@@ -82,14 +82,12 @@ $(document).ready(function () {
         $("#conteudoModal").load("/Debts/RemoveDebt/" + id,
 
             function () {
-                $('#myModal').modal("show")
+                $('#myModal').show()
                 console.log();
             }
 
         )
 
-
+       
     });
-
 });
-

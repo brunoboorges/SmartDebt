@@ -34,7 +34,7 @@ namespace Login.Controllers
         {
             Usuario login = new Usuario();
             
-            if (login.Login(user))
+            if (login.Login(user))  
             { 
                 Session["usuarioLogadoID"] = user.Nome;
                 return RedirectToAction("Debts", "Debts", new { area = "" });

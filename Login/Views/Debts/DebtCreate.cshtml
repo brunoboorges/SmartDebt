@@ -35,10 +35,10 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DataString, "Vencimento", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Date, "Vencimento", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DataString, new { htmlAttributes = new { @class = "form-control", @id = "data", @autocomplete = "off" } })
-                @Html.ValidationMessageFor(model => model.DataString, "", new { @class = "text-danger" })
+                <input type="datetime" class="form-control" name="date" id="data" autocomplete="off" />
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
             </div>
 
         </div>
@@ -58,15 +58,8 @@
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
-<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
-<script type="text/javascript" src="~/Scripts/jquery-3.5.1.min.js"></script>
 <script src="~/Scripts/jquery-ui.min.js"></script>
 <script src="~/Scripts/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
-<script src="~/Scripts/DatapickerScript.js"></script>
 
 
 
@@ -74,15 +67,28 @@
 
 <script type="text/javascript">
 
+
+
     $("#data").datepicker({
-
-        changeMonth: true,
-        changeYear: true, maxDate: "+400D",
-        minDate: 0,
         dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        maxDate: "+600D",
+        minDate: 0,
+        dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+        dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        nextText: 'Proximo',
+        prevText: 'Anterior'
 
-        startDate: new Date(),
+    });
 
+    $("#criardebto").click(function () {
+        var date = $("#data").val();
+        date = date.split('/').reverse().join('/');
+        $("#data").val(date);
+        console.log(date);
     });
 
 
