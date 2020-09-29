@@ -97,7 +97,7 @@ namespace Login.Models
                     if (firstPass == secondPass)
                     {
 
-                        cmd.CommandText = "insert into usuarios (usuario, senha) values ('" + user.Nome + "', '" + user.Password + "' )";
+                        cmd.CommandText = "insert into usuarios (usuario, senha, receita) values ('" + user.Nome + "', '" + user.Password + "' , '0' )";
                         dr = cmd.ExecuteReader();
                         //SE LOGIN E SENHA PASSAR RETORNE: "USUARIO CADASTRADO COM SUCESSO"!
                         return 2;
