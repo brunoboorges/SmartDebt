@@ -15,14 +15,18 @@ namespace Login.Controllers
         {
             Usuario user = new Usuario();
             if (Session["usuarioLogadoID"] != null) {
+                
+                int id = Convert.ToInt32(Session["idUser"]);
                 string usuario = Session["usuarioLogadoID"].ToString();
-                double totalMes = debt.SumDebtsActualMounth(debt);
+
+
+                double totalMes = debt.SumDebtsActualMounth(debt, id);
                 Session["valorTotalMes"] = totalMes.ToString("C2");
-                Session["valorTotal"] = debt.SumDebts(debt).ToString("C2");
+                Session["valorTotal"] = debt.SumDebts(debt, id).ToString("C2");
                 
                 //soma total receita
 
-                double receitaMensal = user.ReceitaMensal(usuario);
+                double receitaMensal = user.ReceitaMensal(usuario, id);
                 double otReceitas = user.SumOtReceitas(user);
                 double receitaResult = receitaMensal + otReceitas;
 
@@ -33,7 +37,7 @@ namespace Login.Controllers
                 double saldoMensal =  receitaResult - totalMes;
                 Session["saldoMensal"] = saldoMensal.ToString("C2");
 
-                var listaDebito = debt.ShowDebts(debt).ToList(); 
+                var listaDebito = debt.ShowDebts(debt, id).ToList(); 
             return View(listaDebito);
             }
             else {
@@ -45,6 +49,7 @@ namespace Login.Controllers
         [HttpGet]
         public ActionResult DebtCreate()
         {
+            
             Department dep = new Department();
             var listDepartment = dep.ShowDepartments(dep).ToList();
             ViewBag.ListDepartments = new SelectList(listDepartment);
@@ -53,8 +58,8 @@ namespace Login.Controllers
         [HttpPost]
         public ActionResult DebtCreate(Debt debt)
         {
-            string x = Session["usuarioLogadoID"].ToString();
-            debt.InsertDebt(debt);
+            int id = Convert.ToInt32(Session["idUser"]);
+            debt.InsertDebt(debt, id);
             return RedirectToAction("Debts");
         }
 

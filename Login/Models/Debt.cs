@@ -57,7 +57,7 @@ namespace Login.Models
 
         //POPULAR DIVIDAS
         List<Debt> dividas = new List<Debt>();
-        public IEnumerable<Debt> ShowDebts(Debt debt)
+        public IEnumerable<Debt> ShowDebts(Debt debt, int id)
         {
 
             try
@@ -65,14 +65,14 @@ namespace Login.Models
                 using (SqlConnection con = new SqlConnection(connectionString()))
                 {
 
-
+                    
                     SqlCommand cmd = new SqlCommand();
                     SqlDataReader dr;
 
                     cmd.Connection = con;
                     con.Open();
 
-                    cmd.CommandText = "select * from debtos ORDER BY Date";
+                    cmd.CommandText = "select * from debtos where Owner='" + id + "' ORDER BY Date ";
                     dr = cmd.ExecuteReader();
 
                     while (dr.Read())
@@ -102,7 +102,7 @@ namespace Login.Models
         }
         //SOMAR DIVIDAS 
 
-        public double SumDebts (Debt debt)
+        public double SumDebts (Debt debt, int id)
         {
             
             List<Debt> lista = new List<Debt>();
@@ -117,7 +117,7 @@ namespace Login.Models
                     cmd.Connection = con;
                     con.Open();
 
-                    cmd.CommandText = "select Amount from debtos";
+                    cmd.CommandText = "select Amount from debtos where Owner = '"+id+"'";
                     dr = cmd.ExecuteReader();
 
                     while (dr.Read())
@@ -144,7 +144,7 @@ namespace Login.Models
         }
 
         //TOTAL MENSAL
-        public double SumDebtsActualMounth(Debt debt)
+        public double SumDebtsActualMounth(Debt debt, int id)
         {
 
             List<Debt> lista = new List<Debt>();
@@ -159,7 +159,7 @@ namespace Login.Models
                     cmd.Connection = con;
                     con.Open();
 
-                    cmd.CommandText = "select Amount, Date from debtos";
+                    cmd.CommandText = "select Amount, Date from debtos where Owner = '"+id+"'";
                     dr = cmd.ExecuteReader();
 
                     while (dr.Read())
@@ -190,17 +190,17 @@ namespace Login.Models
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new Exception("Aqui foi o erro" + e.Message);
             }
 
             return TotalAmount;
         }
         //INSERIR DIVIDA
-        public void InsertDebt(Debt debt)
+        public void InsertDebt(Debt debt, int id)
         {
             
-            DateTime dt = Convert.ToDateTime(debt.DataString);
-            //debt.Date = dt;
+            String dt = debt.Date.ToString("yyyy-MM-dd");
+            debt.Date = Convert.ToDateTime(dt);
 
             //string s = debt.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
 
@@ -215,7 +215,9 @@ namespace Login.Models
                 cmd.Connection = con;
                 con.Open();
 
-                cmd.CommandText = "insert into debtos (Description, Amount, Date, Owner) values ('" + debt.Description+ "',  '" + debt.Amount + "', '" + debt.Date + "', '" + debt.Owner + "' )";
+
+
+                cmd.CommandText = "insert into debtos (Description, Amount, Date, Owner) values ('" + debt.Description+ "',  '" + debt.Amount + "', '" + dt + "', '" + id + "' )";
                 cmd.ExecuteNonQuery();
 
 

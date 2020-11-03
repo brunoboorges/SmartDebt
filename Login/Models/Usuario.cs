@@ -135,6 +135,7 @@ namespace Login.Models
 
             string userDb = "";
             string senhaDb = "";
+            int idUser;
 
             try
             {
@@ -143,22 +144,22 @@ namespace Login.Models
                 cmd.Connection = con;
                 con.Open();
 
-                cmd.CommandText = "select * from usuarios where usuario='" + user.Nome + "' and senha='" + user.Password + "'";
+                cmd.CommandText = "select * from usuarios where usuario='" + user.Nome + "' and senha='" + user.Password + "' ";
                 dr = cmd.ExecuteReader();
 
                 while (dr.Read())
                 {
                     userDb = dr["usuario"].ToString();
                     senhaDb = dr["senha"].ToString();
+                    idUser = Convert.ToInt32(dr["id"]);
+                    user.Id = idUser;
                 }
                 if (user.Nome == userDb && user.Password == senhaDb)
                 {
+                    
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
+                
 
             }
             catch (Exception e)
@@ -265,7 +266,7 @@ namespace Login.Models
         }
 
         //PUXAR RECEITAS
-        public double ReceitaMensal(string user)
+        public double ReceitaMensal(string user, int id)
         {
             double receita = 0;
             try
@@ -277,7 +278,7 @@ namespace Login.Models
                     cmd.Connection = con;
                     con.Open();
 
-                    cmd.CommandText = "select * from usuarios where usuario='" + user + "' ";
+                    cmd.CommandText = "select receita from usuarios where id='" + id + "' ";
                     dr = cmd.ExecuteReader();
 
                     while (dr.Read())
